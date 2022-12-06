@@ -7,20 +7,37 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestFindEnums(t *testing.T) {
-	enums, err := FindEnums("./testdata/model1")
-	require.NoError(t, err)
+func TestEnums_SortedEnums(t *testing.T) {
+	enums := Enums{
+		"Foo": {Name: "Foo", Variants: []string{"FooA", "FooB", "FooC"}},
+		"Bar": {Name: "Bar", Variants: []string{"BarA", "BarB", "BarC"}},
+	}
+
+	sorted := enums.SortedEnums()
 	require.EqualValues(t, []Enum{
-		{Name: "A", Variants: []string{"AA", "AB", "AC"}},
-		{Name: "Iota", Variants: []string{"IotaZero", "IotaOne", "IotaTwo"}},
-		{Name: "Split", Variants: []string{"SplitA", "SplitB", "SplitC"}},
-	}, enums)
+		{Name: "Bar", Variants: []string{"BarA", "BarB", "BarC"}},
+		{Name: "Foo", Variants: []string{"FooA", "FooB", "FooC"}},
+	}, sorted)
+}
+
+func TestFindEnums(t *testing.T) {
+	enumPackages, err := FindEnumPackages("./testdata/model1")
+	require.NoError(t, err)
+	require.Len(t, enumPackages, 1)
+	require.EqualValues(t, EnumPackage{
+		Path: "github.com/neglect-yp/enumizer/testdata/model1",
+		Enums: Enums{
+			"A":     {Name: "A", Variants: []string{"AA", "AB", "AC"}},
+			"Iota":  {Name: "Iota", Variants: []string{"IotaZero", "IotaOne", "IotaTwo"}},
+			"Split": {Name: "Split", Variants: []string{"SplitA", "SplitB", "SplitC"}},
+		},
+	}, enumPackages["model1"])
 }
 
 func TestGenerateEnumHelpers(t *testing.T) {
-	src, err := GenerateEnumHelpers([]Enum{
-		{Name: "Foo", Variants: []string{"FooA", "FooB", "FooC"}},
-		{Name: "Bar", Variants: []string{"BarA", "BarB", "BarC"}},
+	src, err := GenerateEnumHelpers("model", Enums{
+		"Foo": {Name: "Foo", Variants: []string{"FooA", "FooB", "FooC"}},
+		"Bar": {Name: "Bar", Variants: []string{"BarA", "BarB", "BarC"}},
 	})
 	require.NoError(t, err)
 

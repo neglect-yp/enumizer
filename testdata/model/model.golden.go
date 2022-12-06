@@ -3,32 +3,6 @@ package model
 
 import "fmt"
 
-var fooSet = map[Foo]struct{}{
-	FooA: {},
-	FooB: {},
-	FooC: {},
-}
-
-func FooList() []Foo {
-	ret := make([]Foo, 0, len(fooSet))
-	for v := range fooSet {
-		ret = append(ret, v)
-	}
-	return ret
-}
-
-func (m Foo) IsValid() bool {
-	_, ok := fooSet[m]
-	return ok
-}
-
-func (m Foo) Validate() error {
-	if !m.IsValid() {
-		return fmt.Errorf("Foo(%v) is invalid", m)
-	}
-	return nil
-}
-
 var barSet = map[Bar]struct{}{
 	BarA: {},
 	BarB: {},
@@ -51,6 +25,32 @@ func (m Bar) IsValid() bool {
 func (m Bar) Validate() error {
 	if !m.IsValid() {
 		return fmt.Errorf("Bar(%v) is invalid", m)
+	}
+	return nil
+}
+
+var fooSet = map[Foo]struct{}{
+	FooA: {},
+	FooB: {},
+	FooC: {},
+}
+
+func FooList() []Foo {
+	ret := make([]Foo, 0, len(fooSet))
+	for v := range fooSet {
+		ret = append(ret, v)
+	}
+	return ret
+}
+
+func (m Foo) IsValid() bool {
+	_, ok := fooSet[m]
+	return ok
+}
+
+func (m Foo) Validate() error {
+	if !m.IsValid() {
+		return fmt.Errorf("Foo(%v) is invalid", m)
 	}
 	return nil
 }
