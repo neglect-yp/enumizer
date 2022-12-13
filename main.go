@@ -73,10 +73,14 @@ func FindEnumPackages(path string) (EnumPackages, error) {
 			packages.NeedTypes |
 			packages.NeedTypesSizes |
 			packages.NeedSyntax |
-			packages.NeedTypesInfo,
+			packages.NeedTypesInfo |
+			packages.NeedModule,
 	}, path)
 	if err != nil {
 		return nil, err
+	}
+	if packages.PrintErrors(pkgs) > 0 {
+		// Nothing is done here so that the generated code can be deleted and regenerated if there is any code that depends on the generated code
 	}
 
 	enumPackages := make(EnumPackages, 0)
@@ -122,9 +126,16 @@ func FindEnumPackages(path string) (EnumPackages, error) {
 				return false
 			})
 		}
-		enumPackages[pkg.Name] = EnumPackage{
-			Path:  pkg.PkgPath,
-			Enums: enums,
+
+		if len(enums) > 0 {
+			prefix := ""
+			if pkg.Module != nil {
+				prefix = pkg.Module.Path + "/"
+			}
+			enumPackages[pkg.Name] = EnumPackage{
+				Path:  strings.TrimPrefix(pkg.PkgPath, prefix),
+				Enums: enums,
+			}
 		}
 	}
 
@@ -200,7 +211,12 @@ func (m {{ $enum.Name }}) Validate() error {
 		return nil, err
 	}
 
-	return format.Source(buf.Bytes())
+	src, err := format.Source(buf.Bytes())
+	if err != nil {
+		return nil, err
+	}
+
+	return src, nil
 }
 
 func run(ctx context.Context) error {

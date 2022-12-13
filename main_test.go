@@ -25,13 +25,19 @@ func TestFindEnums(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, enumPackages, 1)
 	require.EqualValues(t, EnumPackage{
-		Path: "github.com/neglect-yp/enumizer/testdata/model1",
+		Path: "testdata/model1",
 		Enums: Enums{
 			"A":     {Name: "A", Variants: []string{"AA", "AB", "AC"}},
 			"Iota":  {Name: "Iota", Variants: []string{"IotaZero", "IotaOne", "IotaTwo"}},
 			"Split": {Name: "Split", Variants: []string{"SplitA", "SplitB", "SplitC"}},
 		},
 	}, enumPackages["model1"])
+}
+
+func TestFindEnums_NoMarker(t *testing.T) {
+	enumPackages, err := FindEnumPackages("./testdata/nomarker")
+	require.NoError(t, err)
+	require.Len(t, enumPackages, 0)
 }
 
 func TestGenerateEnumHelpers(t *testing.T) {
