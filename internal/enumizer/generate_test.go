@@ -1,4 +1,4 @@
-package main
+package enumizer
 
 import (
 	"testing"
@@ -25,7 +25,7 @@ func TestFindEnums(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, enumPackages, 1)
 	require.EqualValues(t, EnumPackage{
-		Path: "testdata/model1",
+		Path: "internal/enumizer/testdata/model1",
 		Enums: Enums{
 			"A":     {Name: "A", Variants: []string{"AA", "AB", "AC"}},
 			"Iota":  {Name: "Iota", Variants: []string{"IotaZero", "IotaOne", "IotaTwo"}},
