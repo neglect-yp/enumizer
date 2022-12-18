@@ -9,7 +9,8 @@ import (
 )
 
 var (
-	coverExample = `  enumizer cover ./...`
+	coverExample = `* Check enum coverage
+  enumizer cover ./...`
 
 	coverCmd = &cobra.Command{
 		Use:     "cover PATH",

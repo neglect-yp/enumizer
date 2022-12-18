@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	generateExample = `  enumizer generate ./...`
+	generateExample = `* Generate enum helpers
+  enumizer generate ./...`
 
 	generateCmd = &cobra.Command{
 		Use:     "generate PATH",
