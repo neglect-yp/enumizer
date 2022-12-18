@@ -1,6 +1,7 @@
 # enumizer
 
 [![test](https://github.com/neglect-yp/enumizer/actions/workflows/test.yml/badge.svg)](https://github.com/neglect-yp/enumizer/actions/workflows/test.yml)
+[![license](https://img.shields.io/github/license/neglect-yp/enumizer)](https://github.com/neglect-yp/enumizer/blob/main/LICENSE)
 
 Enumizer is a command-line tool for golang to generate enum helpers and check enum coverage in switch statements.
 
