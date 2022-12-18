@@ -102,7 +102,7 @@ func findEnumTypes(pass *analysis.Pass) {
 	})
 }
 
-const marker = "enumizer:generate"
+const marker = "enumizer:target"
 
 func existsMarker(comments []*ast.Comment) bool {
 	for _, comment := range comments {

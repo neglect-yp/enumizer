@@ -2,13 +2,13 @@ package a
 
 type SplitA int // want SplitA:"SplitAA, SplitAB, SplitAC"
 
-// enumizer:generate
+// enumizer:target
 const (
 	SplitAA SplitA = 0
 	SplitAB SplitA = 1
 )
 
-// enumizer:generate
+// enumizer:target
 const (
 	SplitAC SplitA = 2
 )

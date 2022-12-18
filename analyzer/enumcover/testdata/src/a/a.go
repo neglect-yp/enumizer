@@ -2,7 +2,7 @@ package a
 
 type EnumA string // want EnumA:"EnumAA, EnumAB, EnumAC"
 
-// enumizer:generate
+// enumizer:target
 const (
 	EnumAA EnumA = "a"
 	EnumAB EnumA = "b"

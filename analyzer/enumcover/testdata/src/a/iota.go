@@ -2,7 +2,7 @@ package a
 
 type IotaA int // want IotaA:"IotaAZero, IotaAOne, IotaATwo"
 
-// enumizer:generate
+// enumizer:target
 const (
 	IotaAZero IotaA = iota
 	IotaAOne

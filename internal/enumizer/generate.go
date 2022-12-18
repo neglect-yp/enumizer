@@ -135,7 +135,7 @@ func FindEnumPackages(path string) (EnumPackages, error) {
 	return enumPackages, nil
 }
 
-const marker = "enumizer:generate"
+const marker = "enumizer:target"
 
 func existsMarker(comments []*ast.Comment) bool {
 	for _, comment := range comments {

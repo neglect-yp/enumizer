@@ -2,7 +2,7 @@ package model1
 
 type A string
 
-// enumizer:generate
+// enumizer:target
 const (
 	AA A = "a"
 	AB A = "b"
@@ -11,13 +11,13 @@ const (
 
 type Split string
 
-// enumizer:generate
+// enumizer:target
 const (
 	SplitA Split = "A"
 	SplitB Split = "B"
 )
 
-// enumizer:generate
+// enumizer:target
 const (
 	SplitC Split = "C"
 )
@@ -25,7 +25,7 @@ const (
 type ContaminationA string // ignored
 type ContaminationB string
 
-// enumizer:generate
+// enumizer:target
 const (
 	ContaminationAA ContaminationA = "a"
 	ContaminationBB ContaminationB = "b"
@@ -33,7 +33,7 @@ const (
 
 type Iota int
 
-// enumizer:generate
+// enumizer:target
 const (
 	IotaZero Iota = iota
 	IotaOne
@@ -42,7 +42,7 @@ const (
 
 type WithImplicitType string // ignored
 
-// enumizer:generate
+// enumizer:target
 const (
 	WithImplicitTypeA WithImplicitType = "a"
 	Foo                                = "foo"
