@@ -80,6 +80,19 @@ func MyEnumList() []MyEnum {
 	return ret
 }
 
+func (m MyEnum) String() string {
+	switch m {
+	case A:
+		return "A"
+	case B:
+		return "B"
+	case C:
+		return "C"
+	default:
+		return "<unknown MyEnum>"
+	}
+}
+
 func (m MyEnum) IsValid() bool {
 	_, ok := myEnumSet[m]
 	return ok

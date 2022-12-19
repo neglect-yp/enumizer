@@ -17,6 +17,19 @@ func BarList() []Bar {
 	return ret
 }
 
+func (m Bar) String() string {
+	switch m {
+	case BarA:
+		return "A"
+	case BarB:
+		return "B"
+	case BarC:
+		return "C"
+	default:
+		return "<unknown Bar>"
+	}
+}
+
 func (m Bar) IsValid() bool {
 	_, ok := barSet[m]
 	return ok
@@ -41,6 +54,19 @@ func FooList() []Foo {
 		ret = append(ret, v)
 	}
 	return ret
+}
+
+func (m Foo) String() string {
+	switch m {
+	case FooA:
+		return "A"
+	case FooB:
+		return "B"
+	case FooC:
+		return "C"
+	default:
+		return "<unknown Foo>"
+	}
 }
 
 func (m Foo) IsValid() bool {
