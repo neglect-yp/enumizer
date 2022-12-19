@@ -108,6 +108,6 @@ func Foo(a myenum.MyEnum) {
 ```
 
 ```console
-$ enumizer cover ./example/...
-/<path to homedir>/enumizer/example/myenumuser/myenumuser.go:6:2: this switch statement doesn't cover enum variants. missing cases: A, C
+$ enumizer cover ./examples/...
+/<path to homedir>/enumizer/examples/myenumuser/myenumuser.go:6:2: this switch statement doesn't cover enum variants. missing cases: A, C
 ```
