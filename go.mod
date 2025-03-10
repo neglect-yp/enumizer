@@ -3,20 +3,20 @@ module github.com/neglect-yp/enumizer
 go 1.24
 
 require (
-	github.com/iancoleman/strcase v0.2.0
-	github.com/sebdah/goldie/v2 v2.5.3
-	github.com/spf13/cobra v1.6.1
-	github.com/stretchr/testify v1.8.0
-	golang.org/x/tools v0.1.12
+	github.com/iancoleman/strcase v0.3.0
+	github.com/sebdah/goldie/v2 v2.5.5
+	github.com/spf13/cobra v1.9.1
+	github.com/stretchr/testify v1.10.0
+	golang.org/x/tools v0.31.0
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/inconshreveable/mousetrap v1.0.1 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/sergi/go-diff v1.0.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
-	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
+	github.com/sergi/go-diff v1.3.1 // indirect
+	github.com/spf13/pflag v1.0.6 // indirect
+	golang.org/x/mod v0.24.0 // indirect
+	golang.org/x/sync v0.12.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
