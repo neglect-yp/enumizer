@@ -1,6 +1,8 @@
 module github.com/neglect-yp/enumizer
 
-go 1.24
+go 1.23.0
+
+toolchain go1.24.1
 
 require (
 	github.com/iancoleman/strcase v0.3.0
