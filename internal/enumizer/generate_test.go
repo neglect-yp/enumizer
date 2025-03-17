@@ -44,13 +44,28 @@ func TestGenerateEnumHelpers(t *testing.T) {
 	src, err := GenerateEnumHelpers("model", Enums{
 		"Foo": {Name: "Foo", Variants: []string{"FooA", "FooB", "FooC"}},
 		"Bar": {Name: "Bar", Variants: []string{"BarA", "BarB", "BarC"}},
-	})
+	}, false)
 	require.NoError(t, err)
 
 	g := goldie.New(
 		t,
 		goldie.WithNameSuffix(".golden.go"),
 		goldie.WithFixtureDir("testdata/model"),
+	)
+	g.Assert(t, "model", src)
+}
+
+func TestGenerateEnumHelpers_withoutStringer(t *testing.T) {
+	src, err := GenerateEnumHelpers("model", Enums{
+		"Foo": {Name: "Foo", Variants: []string{"FooA", "FooB", "FooC"}},
+		"Bar": {Name: "Bar", Variants: []string{"BarA", "BarB", "BarC"}},
+	}, true)
+	require.NoError(t, err)
+
+	g := goldie.New(
+		t,
+		goldie.WithNameSuffix(".golden.go"),
+		goldie.WithFixtureDir("testdata/model2"),
 	)
 	g.Assert(t, "model", src)
 }
