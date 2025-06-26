@@ -3,18 +3,19 @@ package enumizer
 import (
 	"bytes"
 	"context"
-	"github.com/iancoleman/strcase"
 	"go/ast"
 	"go/format"
 	"go/token"
 	"go/types"
-	"golang.org/x/tools/go/packages"
 	"log"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 	"text/template"
+
+	"github.com/iancoleman/strcase"
+	"golang.org/x/tools/go/packages"
 )
 
 type EnumPackages map[string]EnumPackage
@@ -153,13 +154,15 @@ func logWithPos(fset *token.FileSet, pos token.Pos, message string) {
 	log.Printf("%s:%d: %s", p.Filename, p.Line, message)
 }
 
-func GenerateEnumHelpers(packageName string, enums Enums) ([]byte, error) {
+func GenerateEnumHelpers(packageName string, enums Enums, withoutStringer bool) ([]byte, error) {
 	templateArgs := struct {
-		PackageName string
-		Enums       Enums
+		PackageName     string
+		Enums           Enums
+		WithoutStringer bool
 	}{
-		PackageName: packageName,
-		Enums:       enums,
+		PackageName:     packageName,
+		Enums:           enums,
+		WithoutStringer: withoutStringer,
 	}
 
 	tpl := template.Must(template.New("").Funcs(map[string]interface{}{
@@ -186,6 +189,7 @@ func {{ $enum.Name }}List() []{{ $enum.Name }} {
 	return ret
 }
 
+{{ if ne $.WithoutStringer true }}
 func (m {{ $enum.Name }}) String() string {
 	switch m {
 	{{- range $j, $variant := $enum.Variants }}
@@ -196,6 +200,7 @@ func (m {{ $enum.Name }}) String() string {
 		return "<unknown {{ $enum.Name }}>"
 	}
 }
+{{ end }}
 
 func (m {{ $enum.Name }}) IsValid() bool {
 	_, ok := {{ lowerCamel $enum.Name }}Set[m]
@@ -224,14 +229,14 @@ func (m {{ $enum.Name }}) Validate() error {
 	return src, nil
 }
 
-func Generate(ctx context.Context, path string, output string) error {
+func Generate(ctx context.Context, path string, output string, withoutStringer bool) error {
 	enumPackages, err := FindEnumPackages(path)
 	if err != nil {
 		return err
 	}
 
 	for packageName, enumPackage := range enumPackages {
-		src, err := GenerateEnumHelpers(packageName, enumPackage.Enums)
+		src, err := GenerateEnumHelpers(packageName, enumPackage.Enums, withoutStringer)
 		if err != nil {
 			return err
 		}

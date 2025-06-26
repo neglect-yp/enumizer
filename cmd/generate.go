@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+
 	"github.com/neglect-yp/enumizer/internal/enumizer"
 	"github.com/spf13/cobra"
 )
@@ -26,14 +27,19 @@ var (
 			if err != nil {
 				return err
 			}
+			withoutStringer, err := cmd.Flags().GetBool("without-stringer")
+			if err != nil {
+				return err
+			}
 
-			return enumizer.Generate(cmd.Context(), args[0], output)
+			return enumizer.Generate(cmd.Context(), args[0], output, withoutStringer)
 		},
 	}
 )
 
 func init() {
 	generateCmd.Flags().String("output", "enumizer.gen.go", "output filename")
+	generateCmd.Flags().Bool("without-stringer", false, "without stringer methods")
 
 	rootCmd.AddCommand(generateCmd)
 }
